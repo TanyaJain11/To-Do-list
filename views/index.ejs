@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo List</title>
+  <link  href="/assets/css/font-awesome.min.css" rel="stylesheet"/>
+  <link  href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet"/>
+  <link href="/assets/css/style.css" rel="stylesheet"/>
+</head>
+
+<body>
+  <header class="mb-3 glassmorphism">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <nav class="navbar justify-content-between">
+            <a class="navbar-brand text-dark"> My Todo List</a>
+            <form class="form-inline">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" name="value" value="" aria-label="Search"
+                id="search" />
+            </form>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="todo-outer">
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col-sm-12 col-md-8">
+          <h1>Schedule Your Daily Plan Here</h1>
+          <div class="todo-inner glassmorphism">
+            <form  action="/" method="post">
+            <div class="form-row">
+              <div class="col-8 mr-sm-2">
+                <input type="text" class="form-control" placeholder="Enter your task" id="addtaskinput" name="item" />
+                <input type="hidden" id="saveindex">
+              </div>
+              <button type="submit" class="btn mr-sm-2" id="addtaskbtn">
+                Add Task
+              </button>
+              <!-- <button type="button" class="btn mr-sm-2" id="savetaskbtn" style="display: none;">
+                Save Task
+              </button> -->
+              <!-- <button type="button" id="deleteallbtn" onclick="funnn()" class="btn ">
+                Delete All
+              </button> -->
+            </div>
+            </form>
+            <div class="to-do-output">
+              <table class="table table-striped mt-3 mb-0" id="addedtasklist">
+                <tbody>
+                    <% for(let i=0; i< newItemsList.length; i++){%>
+                    <tr>
+                        <th scope="row"><%=i%></th>
+                        <td><%= newItemsList[i]%></td>
+                        <form action="/delete" method="post">
+                            <input type="hidden" name="v" value="<%=i%>" />
+
+                            <td><button type="submit" class="text-danger"><i class="fa-solid fa-trash"></i></button></td>
+            
+                          </form>
+                    </tr>
+
+                    <%}%>
+                
+               </tbody>
+              </table>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    const searchInput = document.getElementById("search");
+    const row = document.querySelectorAll("tbody tr");
+
+    searchInput.addEventListener("keyup",function(event){
+        console.log("hello");
+        const q = event.target.value;
+        console.log(q);
+        row.forEach((row)=>{
+            row.querySelector('td').textContent.toLowerCase().startsWith(q)?(row.style.display="table-row"): row.style.display='none'
+        })
+    })
+
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
+  <script src="/public/assets/js/list.js"></script>
+</body>
+
+</html>
